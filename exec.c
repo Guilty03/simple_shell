@@ -1,4 +1,8 @@
 #include "simple_shell.h"
+
+#define MAX_ARGS 1024
+
+
 /**
  * _exec - execute the command
  * @cmd: the command
@@ -18,7 +22,6 @@ int _exec(char *cmd, char **array)
      * for arg in array:
      * exec_args.append(arg)
      * exec_args.append(None)
-     * define MAX_ARGS 1024
      */
     char *exec_args[MAX_ARGS + 2];
     int i;
