@@ -31,5 +31,5 @@ int _exec(char *cmd, char **array)
 	{
 		waitpid(pid, &status, WUNTRACED);
 	}
-	return (1);
+	return(1);
 }
