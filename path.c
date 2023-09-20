@@ -46,5 +46,5 @@ char *path(char *cmd)
 		free(full[i]);
 	free(full);
 	free(_path);
-	return (NULL);
+	return(NULL);
 }

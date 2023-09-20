@@ -1,35 +1,38 @@
 #include "simple_shell.h"
 /**
-*_exec - execute the command
-*@cmd: the command
-*@array: array holdin the argments
-*Return: Return 0 in success
-*/
+ * _exec - execute the command
+ * @cmd: the command
+ * @array: array holding the arguments
+ * Return: Return 0 on success
+ */
 int _exec(char *cmd, char **array)
 {
-	pid_t pid;
-	int status;
-
-	if (cmd == NULL || array == NULL)
-		return (-1);
-
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fail to fork");
-		return (-1);
-	}
-	else if (pid == 0)
-	{
-		if (execve(cmd, array, environ) != 0)
-		{
-			perror("fail to execute");
-			return (-1);
-		}
-	}
-	else
-	{
-		waitpid(pid, &status, WUNTRACED);
-	}
-	return (1);
+    if (cmd == NULL || array == NULL)
+    {
+        perror("Invalid input");
+        return (-1);
+    }
+    /**
+     * create array of pointers to store the command and arguments
+     * exec_args = [cmd]
+     * for arg in array:
+     * exec_args.append(arg)
+     * exec_args.append(None)
+     * define MAX_ARGS 1024
+     */
+    char *exec_args[MAX_ARGS + 2];
+    int i;
+    exec_args[0] = cmd;
+    for (i = 0; array[i] != NULL && i < MAX_ARGS; i++)
+    {
+        exec_args[i + 1] = array[i];
+    }
+    exec_args[i + 1] = NULL;
+    if (execvp(cmd, exec_args) == -1)
+    {
+        perror("Execution failed");
+        return (-1);
+    }
+    perror("Unexpected error");
+    return (-1);
 }
