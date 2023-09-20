@@ -11,11 +11,15 @@
  */
 int _exec(char *cmd, char **array)
 {
+	char *exec_args[MAX_ARGS + 2]; /*+2 for cmd and NULL terminator*/
+    int i;
+
     if (cmd == NULL || array == NULL)
     {
         perror("Invalid input");
         return (-1);
     }
+
     /**
      * create array of pointers to store the command and arguments
      * exec_args = [cmd]
@@ -23,8 +27,7 @@ int _exec(char *cmd, char **array)
      * exec_args.append(arg)
      * exec_args.append(None)
      */
-    char *exec_args[MAX_ARGS + 2];
-    int i;
+
     exec_args[0] = cmd;
     for (i = 0; array[i] != NULL && i < MAX_ARGS; i++)
     {
